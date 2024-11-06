@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "template.upbound.io"
+	Group   = "stackit.cloud"
 	Version = "v1beta1"
 )
 

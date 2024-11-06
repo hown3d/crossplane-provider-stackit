@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/stackitcloud/crossplane-provider-stackit
 
 go 1.21
 
