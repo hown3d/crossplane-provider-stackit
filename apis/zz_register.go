@@ -10,7 +10,7 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/stackitcloud/crossplane-provider-stackit/apis/null/v1alpha1"
+	v1alpha1 "github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1"
 	v1alpha1apis "github.com/stackitcloud/crossplane-provider-stackit/apis/v1alpha1"
 	v1beta1 "github.com/stackitcloud/crossplane-provider-stackit/apis/v1beta1"
 )

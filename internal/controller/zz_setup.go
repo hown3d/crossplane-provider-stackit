@@ -9,7 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
-	resource "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/null/resource"
+	instance "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/postgresflex/instance"
 	providerconfig "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/providerconfig"
 )
 
@@ -17,7 +17,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		instance.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

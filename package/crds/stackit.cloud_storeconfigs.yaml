@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: storeconfigs.stackit.upbound.io
+  name: storeconfigs.stackit.cloud
 spec:
-  group: stackit.upbound.io
+  group: stackit.cloud
   names:
     categories:
     - crossplane
