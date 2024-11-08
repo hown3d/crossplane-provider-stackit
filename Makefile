@@ -14,7 +14,7 @@ export TERRAFORM_PROVIDER_SOURCE ?= stackitcloud/stackit
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/stackitcloud/terraform-provider-stackit
 export TERRAFORM_PROVIDER_VERSION ?= 0.33.2
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-stackit
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/$(TERRAFORM_PROVIDER_VERSION)
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/stackitcloud/terraform-provider-stackit/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-stackit$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
@@ -63,7 +63,8 @@ UPTEST_VERSION = v0.5.0
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/upbound
+# REGISTRY_ORGS ?= xpkg.upbound.io/upbound
+REGISTRY_ORGS ?= reg3.infra.ske.eu01.stackit.cloud/crossplane
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
@@ -93,7 +94,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.provider-stackit: do.build.images
+xpkg.build.crossplane-provider-stackit: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
