@@ -143,7 +143,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	in.Flavor.DeepCopyInto(&out.Flavor)
+	if in.Flavor != nil {
+		in, out := &in.Flavor, &out.Flavor
+		*out = new(FlavorInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -159,7 +163,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	in.Storage.DeepCopyInto(&out.Storage)
+	if in.Storage != nil {
+		in, out := &in.Storage, &out.Storage
+		*out = new(StorageInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)
@@ -228,7 +236,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	in.Flavor.DeepCopyInto(&out.Flavor)
+	if in.Flavor != nil {
+		in, out := &in.Flavor, &out.Flavor
+		*out = new(FlavorObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -254,7 +266,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(float64)
 		**out = **in
 	}
-	in.Storage.DeepCopyInto(&out.Storage)
+	if in.Storage != nil {
+		in, out := &in.Storage, &out.Storage
+		*out = new(StorageObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)
@@ -291,7 +307,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	in.Flavor.DeepCopyInto(&out.Flavor)
+	if in.Flavor != nil {
+		in, out := &in.Flavor, &out.Flavor
+		*out = new(FlavorParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -307,7 +327,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	in.Storage.DeepCopyInto(&out.Storage)
+	if in.Storage != nil {
+		in, out := &in.Storage, &out.Storage
+		*out = new(StorageParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)
