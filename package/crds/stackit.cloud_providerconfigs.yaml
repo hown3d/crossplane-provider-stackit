@@ -107,8 +107,12 @@ spec:
                 required:
                 - source
                 type: object
+              region:
+                description: Region to use is required
+                type: string
             required:
             - credentials
+            - region
             type: object
           status:
             description: A ProviderConfigStatus reflects the observed state of a ProviderConfig.

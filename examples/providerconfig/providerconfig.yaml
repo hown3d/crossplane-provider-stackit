@@ -1,8 +1,9 @@
-apiVersion: stackit.upbound.io/v1beta1
+apiVersion: stackit.cloud/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
 spec:
+  region: eu01
   credentials:
     source: Secret
     secretRef:

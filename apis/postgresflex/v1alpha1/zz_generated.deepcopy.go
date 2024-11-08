@@ -143,13 +143,7 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Flavor != nil {
-		in, out := &in.Flavor, &out.Flavor
-		*out = make([]FlavorInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
+	in.Flavor.DeepCopyInto(&out.Flavor)
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -165,13 +159,7 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Storage != nil {
-		in, out := &in.Storage, &out.Storage
-		*out = make([]StorageInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
+	in.Storage.DeepCopyInto(&out.Storage)
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)
@@ -240,13 +228,7 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Flavor != nil {
-		in, out := &in.Flavor, &out.Flavor
-		*out = make([]FlavorObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
+	in.Flavor.DeepCopyInto(&out.Flavor)
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -272,13 +254,7 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Storage != nil {
-		in, out := &in.Storage, &out.Storage
-		*out = make([]StorageObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
+	in.Storage.DeepCopyInto(&out.Storage)
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)
@@ -315,13 +291,7 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Flavor != nil {
-		in, out := &in.Flavor, &out.Flavor
-		*out = make([]FlavorParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
+	in.Flavor.DeepCopyInto(&out.Flavor)
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -337,13 +307,7 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Storage != nil {
-		in, out := &in.Storage, &out.Storage
-		*out = make([]StorageParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
+	in.Storage.DeepCopyInto(&out.Storage)
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)

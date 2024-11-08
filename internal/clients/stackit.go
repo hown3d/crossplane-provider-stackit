@@ -31,7 +31,7 @@ const (
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
-		ps := terraform.Setup{
+		tfSetup := terraform.Setup{
 			Version: version,
 			Requirement: terraform.ProviderRequirement{
 				Source:  providerSource,
@@ -41,32 +41,33 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 
 		configRef := mg.GetProviderConfigReference()
 		if configRef == nil {
-			return ps, errors.New(errNoProviderConfig)
+			return tfSetup, errors.New(errNoProviderConfig)
 		}
-		pc := &v1beta1.ProviderConfig{}
-		if err := client.Get(ctx, types.NamespacedName{Name: configRef.Name}, pc); err != nil {
-			return ps, errors.Wrap(err, errGetProviderConfig)
-		}
-
-		t := resource.NewProviderConfigUsageTracker(client, &v1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
-			return ps, errors.Wrap(err, errTrackUsage)
+		providerConfig := &v1beta1.ProviderConfig{}
+		if err := client.Get(ctx, types.NamespacedName{Name: configRef.Name}, providerConfig); err != nil {
+			return tfSetup, errors.Wrap(err, errGetProviderConfig)
 		}
 
-		data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
+		tracker := resource.NewProviderConfigUsageTracker(client, &v1beta1.ProviderConfigUsage{})
+		if err := tracker.Track(ctx, mg); err != nil {
+			return tfSetup, errors.Wrap(err, errTrackUsage)
+		}
+
+		data, err := resource.CommonCredentialExtractor(ctx, providerConfig.Spec.Credentials.Source, client, providerConfig.Spec.Credentials.CommonCredentialSelectors)
 		if err != nil {
-			return ps, errors.Wrap(err, errExtractCredentials)
+			return tfSetup, errors.Wrap(err, errExtractCredentials)
 		}
 		creds := map[string]string{}
 		if err := json.Unmarshal(data, &creds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
+			return tfSetup, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		ps.Configuration = map[string]any{
+		tfSetup.Configuration = map[string]any{
 			"service_account_email": creds["service_account_email"],
 			"service_account_token": creds["service_account_token"],
+			"region":                providerConfig.Spec.Region,
 		}
 
-		return ps, nil
+		return tfSetup, nil
 	}
 }

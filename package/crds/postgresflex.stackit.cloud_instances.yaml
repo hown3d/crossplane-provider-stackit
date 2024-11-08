@@ -85,16 +85,14 @@ spec:
                     type: string
                   flavor:
                     description: (Attributes) (see below for nested schema)
-                    items:
-                      properties:
-                        cpu:
-                          description: (Number)
-                          type: number
-                        ram:
-                          description: (Number)
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      cpu:
+                        description: (Number)
+                        type: number
+                      ram:
+                        description: (Number)
+                        type: number
+                    type: object
                   name:
                     description: |-
                       (String) Instance name.
@@ -110,16 +108,14 @@ spec:
                     type: number
                   storage:
                     description: (Attributes) (see below for nested schema)
-                    items:
-                      properties:
-                        class:
-                          description: (String)
-                          type: string
-                        size:
-                          description: (Number)
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      class:
+                        description: (String)
+                        type: string
+                      size:
+                        description: (Number)
+                        type: number
+                    type: object
                   version:
                     description: (String)
                     type: string
@@ -149,16 +145,14 @@ spec:
                     type: string
                   flavor:
                     description: (Attributes) (see below for nested schema)
-                    items:
-                      properties:
-                        cpu:
-                          description: (Number)
-                          type: number
-                        ram:
-                          description: (Number)
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      cpu:
+                        description: (Number)
+                        type: number
+                      ram:
+                        description: (Number)
+                        type: number
+                    type: object
                   name:
                     description: |-
                       (String) Instance name.
@@ -174,16 +168,14 @@ spec:
                     type: number
                   storage:
                     description: (Attributes) (see below for nested schema)
-                    items:
-                      properties:
-                        class:
-                          description: (String)
-                          type: string
-                        size:
-                          description: (Number)
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      class:
+                        description: (String)
+                        type: string
+                      size:
+                        description: (Number)
+                        type: number
+                    type: object
                   version:
                     description: (String)
                     type: string
@@ -405,22 +397,20 @@ spec:
                     type: string
                   flavor:
                     description: (Attributes) (see below for nested schema)
-                    items:
-                      properties:
-                        cpu:
-                          description: (Number)
-                          type: number
-                        description:
-                          description: (String)
-                          type: string
-                        id:
-                          description: It is structured as "project_id,instance_id".
-                          type: string
-                        ram:
-                          description: (Number)
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      cpu:
+                        description: (Number)
+                        type: number
+                      description:
+                        description: (String)
+                        type: string
+                      id:
+                        description: It is structured as "project_id,instance_id".
+                        type: string
+                      ram:
+                        description: (Number)
+                        type: number
+                    type: object
                   id:
                     description: It is structured as "project_id,instance_id".
                     type: string
@@ -444,16 +434,14 @@ spec:
                     type: number
                   storage:
                     description: (Attributes) (see below for nested schema)
-                    items:
-                      properties:
-                        class:
-                          description: (String)
-                          type: string
-                        size:
-                          description: (Number)
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      class:
+                        description: (String)
+                        type: string
+                      size:
+                        description: (Number)
+                        type: number
+                    type: object
                   version:
                     description: (String)
                     type: string

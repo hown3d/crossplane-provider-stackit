@@ -58,7 +58,7 @@ type InstanceInitParameters struct {
 	BackupSchedule *string `json:"backupSchedule,omitempty" tf:"backup_schedule,omitempty"`
 
 	// (Attributes) (see below for nested schema)
-	Flavor []FlavorInitParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
+	Flavor FlavorInitParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// (String) Instance name.
 	// Instance name.
@@ -72,7 +72,7 @@ type InstanceInitParameters struct {
 	Replicas *float64 `json:"replicas,omitempty" tf:"replicas,omitempty"`
 
 	// (Attributes) (see below for nested schema)
-	Storage []StorageInitParameters `json:"storage,omitempty" tf:"storage,omitempty"`
+	Storage StorageInitParameters `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// (String)
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
@@ -88,7 +88,7 @@ type InstanceObservation struct {
 	BackupSchedule *string `json:"backupSchedule,omitempty" tf:"backup_schedule,omitempty"`
 
 	// (Attributes) (see below for nested schema)
-	Flavor []FlavorObservation `json:"flavor,omitempty" tf:"flavor,omitempty"`
+	Flavor FlavorObservation `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// It is structured as "project_id,instance_id".
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -109,7 +109,7 @@ type InstanceObservation struct {
 	Replicas *float64 `json:"replicas,omitempty" tf:"replicas,omitempty"`
 
 	// (Attributes) (see below for nested schema)
-	Storage []StorageObservation `json:"storage,omitempty" tf:"storage,omitempty"`
+	Storage StorageObservation `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// (String)
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
@@ -128,7 +128,7 @@ type InstanceParameters struct {
 
 	// (Attributes) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Flavor []FlavorParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
+	Flavor FlavorParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// (String) Instance name.
 	// Instance name.
@@ -146,7 +146,7 @@ type InstanceParameters struct {
 
 	// (Attributes) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Storage []StorageParameters `json:"storage,omitempty" tf:"storage,omitempty"`
+	Storage StorageParameters `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// (String)
 	// +kubebuilder:validation:Optional
