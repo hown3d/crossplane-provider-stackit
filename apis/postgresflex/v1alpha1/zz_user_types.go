@@ -18,6 +18,7 @@ type UserInitParameters struct {
 	// (String) ID of the PostgresFlex instance.
 	// ID of the PostgresFlex instance.
 	// +crossplane:generate:reference:type=github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex.InstanceIDExtractor()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Reference to a Instance in postgresflex to populate instanceId.
@@ -78,6 +79,7 @@ type UserParameters struct {
 	// (String) ID of the PostgresFlex instance.
 	// ID of the PostgresFlex instance.
 	// +crossplane:generate:reference:type=github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex.InstanceIDExtractor()
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 

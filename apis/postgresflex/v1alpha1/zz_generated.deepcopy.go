@@ -149,6 +149,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(FlavorInitParameters)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
@@ -247,6 +252,11 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
@@ -302,6 +312,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(FlavorParameters)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID

@@ -15,6 +15,7 @@ spec:
     flavor:
       cpu: 2
       ram: 4
+    name: example-instance
     projectId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
     replicas: 3
     storage:

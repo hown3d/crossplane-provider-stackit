@@ -30,7 +30,8 @@ func GetProvider() *ujconfig.Provider {
 		ujconfig.WithRootGroup("stackit.cloud"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
-		ujconfig.WithDefaultResourceOptions())
+		ujconfig.WithDefaultResourceOptions(ExternalNameConfigurations()),
+	)
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		postgresflex.Configure,

@@ -93,6 +93,11 @@ spec:
                         description: (Number)
                         type: number
                     type: object
+                  name:
+                    description: |-
+                      (String) Instance name.
+                      Instance name.
+                    type: string
                   projectId:
                     description: |-
                       (String) STACKIT project ID to which the instance is associated.
@@ -148,6 +153,11 @@ spec:
                         description: (Number)
                         type: number
                     type: object
+                  name:
+                    description: |-
+                      (String) Instance name.
+                      Instance name.
+                    type: string
                   projectId:
                     description: |-
                       (String) STACKIT project ID to which the instance is associated.
@@ -350,6 +360,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
                 || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.projectId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.projectId)
@@ -404,6 +418,11 @@ spec:
                     description: |-
                       (String) ID of the PostgresFlex instance.
                       ID of the PostgresFlex instance.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Instance name.
+                      Instance name.
                     type: string
                   projectId:
                     description: |-

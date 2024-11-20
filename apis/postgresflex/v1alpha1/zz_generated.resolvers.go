@@ -10,6 +10,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
+	postgresflex "github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -22,7 +23,7 @@ func (mg *User) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceID),
-		Extract:      reference.ExternalName(),
+		Extract:      postgresflex.InstanceIDExtractor(),
 		Reference:    mg.Spec.ForProvider.InstanceIDRef,
 		Selector:     mg.Spec.ForProvider.InstanceIDSelector,
 		To: reference.To{
@@ -38,7 +39,7 @@ func (mg *User) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceID),
-		Extract:      reference.ExternalName(),
+		Extract:      postgresflex.InstanceIDExtractor(),
 		Reference:    mg.Spec.InitProvider.InstanceIDRef,
 		Selector:     mg.Spec.InitProvider.InstanceIDSelector,
 		To: reference.To{

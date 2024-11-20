@@ -1,39 +1,45 @@
 package postgresflex
 
 import (
-	"fmt"
-
+	"github.com/crossplane/crossplane-runtime/pkg/fieldpath"
+	"github.com/crossplane/crossplane-runtime/pkg/reference"
+	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/upjet/pkg/config"
-	"github.com/pkg/errors"
 )
 
 const (
-	ErrFmtNoAttribute = "attribute %s not found"
+	// SelfPackagePath is the golang path for this package.
+	SelfPackagePath = "github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex"
+
+	// PathInstanceIDExtractor is the golang path to InstanceIDExtractor function
+	// in this package.
+	PathInstanceIDExtractor = SelfPackagePath + ".InstanceIDExtractor()"
 )
 
-func getInstanceId(tfstate map[string]any) (string, error) {
-	id, ok := tfstate["instance_id"]
-	if !ok {
-		return "", errors.Errorf(ErrFmtNoAttribute, "instance_id")
+func InstanceIDExtractor() reference.ExtractValueFn {
+	return func(m xpresource.Managed) string {
+		paved, err := fieldpath.PaveObject(m)
+		if err != nil {
+			// todo(hasan): should we log this error?
+			return ""
+		}
+		r, err := paved.GetString("status.atProvider.instanceId")
+		if err != nil {
+			// todo(hasan): should we log this error?
+			return ""
+		}
+		return r
 	}
-	return fmt.Sprintf("%s", id), nil
 }
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("stackit_postgresflex_instance", func(r *config.Resource) {
-		r.ExternalName = config.ExternalName{
-			SetIdentifierArgumentFn: func(base map[string]any, externalName string) {
-				base["name"] = externalName
-			},
-			GetExternalNameFn: getInstanceId,
-			GetIDFn:           config.ExternalNameAsID,
-			OmittedFields:     []string{"name"},
-		}
 	})
 	p.AddResourceConfigurator("stackit_postgresflex_user", func(r *config.Resource) {
 		r.References["instance_id"] = config.Reference{
 			TerraformName: "stackit_postgresflex_instance",
+			Extractor:     PathInstanceIDExtractor,
 		}
 	})
 }

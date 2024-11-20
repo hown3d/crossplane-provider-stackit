@@ -60,6 +60,10 @@ type InstanceInitParameters struct {
 	// (Attributes) (see below for nested schema)
 	Flavor *FlavorInitParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
+	// (String) Instance name.
+	// Instance name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) STACKIT project ID to which the instance is associated.
 	// STACKIT project ID to which the instance is associated.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -93,6 +97,10 @@ type InstanceObservation struct {
 	// ID of the PostgresFlex instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// (String) Instance name.
+	// Instance name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (String) STACKIT project ID to which the instance is associated.
 	// STACKIT project ID to which the instance is associated.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -121,6 +129,11 @@ type InstanceParameters struct {
 	// (Attributes) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Flavor *FlavorParameters `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// (String) Instance name.
+	// Instance name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) STACKIT project ID to which the instance is associated.
 	// STACKIT project ID to which the instance is associated.
@@ -208,6 +221,7 @@ type Instance struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.acl) || (has(self.initProvider) && has(self.initProvider.acl))",message="spec.forProvider.acl is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.backupSchedule) || (has(self.initProvider) && has(self.initProvider.backupSchedule))",message="spec.forProvider.backupSchedule is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavor) || (has(self.initProvider) && has(self.initProvider.flavor))",message="spec.forProvider.flavor is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.projectId) || (has(self.initProvider) && has(self.initProvider.projectId))",message="spec.forProvider.projectId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.replicas) || (has(self.initProvider) && has(self.initProvider.replicas))",message="spec.forProvider.replicas is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.storage) || (has(self.initProvider) && has(self.initProvider.storage))",message="spec.forProvider.storage is a required parameter"
