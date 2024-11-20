@@ -3,4 +3,5 @@ kind: Provider
 metadata:
   name: provider-stackit
 spec:
-  package: stackitcloud/crossplane-provider-stackit:v0.1.0
+  package: reg3.infra.ske.eu01.stackit.cloud/crossplane/xpkg/crossplane-provider-stackit:latest
+  packagePullPolicy: Always

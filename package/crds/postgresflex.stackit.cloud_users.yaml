@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: instances.postgresflex.stackit.cloud
+  name: users.postgresflex.stackit.cloud
 spec:
   group: postgresflex.stackit.cloud
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - stackit
-    kind: Instance
-    listKind: InstanceList
-    plural: instances
-    singular: instance
+    kind: User
+    listKind: UserList
+    plural: users
+    singular: user
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Instance is the Schema for the Instances API. Postgres Flex instance
-          resource schema. Must have a region specified in the provider configuration.
+        description: User is the Schema for the Users API. Postgres Flex user resource
+          schema. Must have a region specified in the provider configuration.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: InstanceSpec defines the desired state of Instance
+            description: UserSpec defines the desired state of User
             properties:
               deletionPolicy:
                 default: Delete
@@ -73,45 +73,101 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  acl:
+                  instanceId:
                     description: |-
-                      (List of String) The Access Control List (ACL) for the PostgresFlex instance.
-                      The Access Control List (ACL) for the PostgresFlex instance.
-                    items:
-                      type: string
-                    type: array
-                  backupSchedule:
-                    description: (String)
+                      (String) ID of the PostgresFlex instance.
+                      ID of the PostgresFlex instance.
                     type: string
-                  flavor:
-                    description: (Attributes) (see below for nested schema)
+                  instanceIdRef:
+                    description: Reference to a Instance in postgresflex to populate
+                      instanceId.
                     properties:
-                      cpu:
-                        description: (Number)
-                        type: number
-                      ram:
-                        description: (Number)
-                        type: number
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  instanceIdSelector:
+                    description: Selector for a Instance in postgresflex to populate
+                      instanceId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
                     type: object
                   projectId:
                     description: |-
                       (String) STACKIT project ID to which the instance is associated.
                       STACKIT project ID to which the instance is associated.
                     type: string
-                  replicas:
-                    description: (Number)
-                    type: number
-                  storage:
-                    description: (Attributes) (see below for nested schema)
-                    properties:
-                      class:
-                        description: (String)
-                        type: string
-                      size:
-                        description: (Number)
-                        type: number
-                    type: object
-                  version:
+                  roles:
+                    description: |-
+                      (Set of String) Database access levels for the user. Supported values are: login, createdb.
+                      Database access levels for the user. Supported values are: `login`, `createdb`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  username:
                     description: (String)
                     type: string
                 type: object
@@ -128,45 +184,101 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  acl:
+                  instanceId:
                     description: |-
-                      (List of String) The Access Control List (ACL) for the PostgresFlex instance.
-                      The Access Control List (ACL) for the PostgresFlex instance.
-                    items:
-                      type: string
-                    type: array
-                  backupSchedule:
-                    description: (String)
+                      (String) ID of the PostgresFlex instance.
+                      ID of the PostgresFlex instance.
                     type: string
-                  flavor:
-                    description: (Attributes) (see below for nested schema)
+                  instanceIdRef:
+                    description: Reference to a Instance in postgresflex to populate
+                      instanceId.
                     properties:
-                      cpu:
-                        description: (Number)
-                        type: number
-                      ram:
-                        description: (Number)
-                        type: number
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  instanceIdSelector:
+                    description: Selector for a Instance in postgresflex to populate
+                      instanceId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
                     type: object
                   projectId:
                     description: |-
                       (String) STACKIT project ID to which the instance is associated.
                       STACKIT project ID to which the instance is associated.
                     type: string
-                  replicas:
-                    description: (Number)
-                    type: number
-                  storage:
-                    description: (Attributes) (see below for nested schema)
-                    properties:
-                      class:
-                        description: (String)
-                        type: string
-                      size:
-                        description: (Number)
-                        type: number
-                    type: object
-                  version:
+                  roles:
+                    description: |-
+                      (Set of String) Database access levels for the user. Supported values are: login, createdb.
+                      Database access levels for the user. Supported values are: `login`, `createdb`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  username:
                     description: (String)
                     type: string
                 type: object
@@ -338,92 +450,56 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.acl is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.acl)
-                || (has(self.initProvider) && has(self.initProvider.acl))'
-            - message: spec.forProvider.backupSchedule is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.backupSchedule)
-                || (has(self.initProvider) && has(self.initProvider.backupSchedule))'
-            - message: spec.forProvider.flavor is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
-                || (has(self.initProvider) && has(self.initProvider.flavor))'
             - message: spec.forProvider.projectId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.projectId)
                 || (has(self.initProvider) && has(self.initProvider.projectId))'
-            - message: spec.forProvider.replicas is a required parameter
+            - message: spec.forProvider.roles is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.replicas)
-                || (has(self.initProvider) && has(self.initProvider.replicas))'
-            - message: spec.forProvider.storage is a required parameter
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.roles)
+                || (has(self.initProvider) && has(self.initProvider.roles))'
+            - message: spec.forProvider.username is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.storage)
-                || (has(self.initProvider) && has(self.initProvider.storage))'
-            - message: spec.forProvider.version is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.version)
-                || (has(self.initProvider) && has(self.initProvider.version))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.username)
+                || (has(self.initProvider) && has(self.initProvider.username))'
           status:
-            description: InstanceStatus defines the observed state of Instance.
+            description: UserStatus defines the observed state of User.
             properties:
               atProvider:
                 properties:
-                  acl:
-                    description: |-
-                      (List of String) The Access Control List (ACL) for the PostgresFlex instance.
-                      The Access Control List (ACL) for the PostgresFlex instance.
-                    items:
-                      type: string
-                    type: array
-                  backupSchedule:
+                  host:
                     description: (String)
                     type: string
-                  flavor:
-                    description: (Attributes) (see below for nested schema)
-                    properties:
-                      cpu:
-                        description: (Number)
-                        type: number
-                      description:
-                        description: (String)
-                        type: string
-                      id:
-                        description: It is structured as "project_id,instance_id".
-                        type: string
-                      ram:
-                        description: (Number)
-                        type: number
-                    type: object
                   id:
-                    description: It is structured as "project_id,instance_id".
+                    description: It is structured as "project_id,instance_id,user_id".
                     type: string
                   instanceId:
                     description: |-
                       (String) ID of the PostgresFlex instance.
                       ID of the PostgresFlex instance.
                     type: string
+                  port:
+                    description: (Number)
+                    type: number
                   projectId:
                     description: |-
                       (String) STACKIT project ID to which the instance is associated.
                       STACKIT project ID to which the instance is associated.
                     type: string
-                  replicas:
-                    description: (Number)
-                    type: number
-                  storage:
-                    description: (Attributes) (see below for nested schema)
-                    properties:
-                      class:
-                        description: (String)
-                        type: string
-                      size:
-                        description: (Number)
-                        type: number
-                    type: object
-                  version:
+                  roles:
+                    description: |-
+                      (Set of String) Database access levels for the user. Supported values are: login, createdb.
+                      Database access levels for the user. Supported values are: `login`, `createdb`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  userId:
+                    description: |-
+                      (String) User ID.
+                      User ID.
+                    type: string
+                  username:
                     description: (String)
                     type: string
                 type: object
