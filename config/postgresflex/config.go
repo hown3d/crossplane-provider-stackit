@@ -2,6 +2,8 @@ package postgresflex
 
 import (
 	"fmt"
+	"math"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/pkg/fieldpath"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
@@ -52,12 +54,15 @@ func Configure(p *config.Provider) {
 		r.UseAsync = true
 	})
 	p.AddResourceConfigurator("stackit_postgresflex_user", func(r *config.Resource) {
+		r.Sensitive.AdditionalConnectionDetailsFn = additionalConnectionDetails("host", "port", "password", "username")
 		r.References["instance_id"] = config.Reference{
 			TerraformName: "stackit_postgresflex_instance",
 			Extractor:     atProviderExtractorPath("instanceId"),
 		}
 	})
 	p.AddResourceConfigurator("stackit_postgresflex_database", func(r *config.Resource) {
+		r.Sensitive.AdditionalConnectionDetailsFn = additionalConnectionDetails("name")
+
 		r.References["instance_id"] = config.Reference{
 			TerraformName: "stackit_postgresflex_instance",
 			Extractor:     atProviderExtractorPath("instanceId"),
@@ -67,4 +72,28 @@ func Configure(p *config.Provider) {
 			Extractor:     atProviderExtractorPath("username"),
 		}
 	})
+}
+
+func additionalConnectionDetails(keys ...string) config.AdditionalConnectionDetailsFn {
+	return func(attr map[string]any) (map[string][]byte, error) {
+		conn := map[string][]byte{}
+		for _, k := range keys {
+			val := attr[k]
+			switch typedVal := val.(type) {
+			case string:
+				conn[k] = []byte(typedVal)
+			case int:
+				conn[k] = []byte(strconv.Itoa(typedVal))
+			case float64:
+				if _, frac := math.Modf(typedVal); frac == 0 {
+					conn[k] = []byte(strconv.Itoa(int(typedVal)))
+				} else {
+					conn[k] = []byte(strconv.FormatFloat(typedVal, 'f', -1, 64))
+				}
+			default:
+				return nil, fmt.Errorf("unknown type for key %s: %T", k, val)
+			}
+		}
+		return conn, nil
+	}
 }
