@@ -13,10 +13,10 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type UserInitParameters struct {
+type DatabaseInitParameters struct {
 
-	// (String) ID of the PostgresFlex instance.
-	// ID of the PostgresFlex instance.
+	// (String) ID of the Postgres Flex instance.
+	// ID of the Postgres Flex instance.
 	// +crossplane:generate:reference:type=github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex.AtProviderExtractor("instanceId")
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
@@ -29,55 +29,59 @@ type UserInitParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
+	// (String) Database name.
+	// Database name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Username of the database owner.
+	// Username of the database owner.
+	// +crossplane:generate:reference:type=github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex.AtProviderExtractor("username")
+	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Reference to a User in postgresflex to populate owner.
+	// +kubebuilder:validation:Optional
+	OwnerRef *v1.Reference `json:"ownerRef,omitempty" tf:"-"`
+
+	// Selector for a User in postgresflex to populate owner.
+	// +kubebuilder:validation:Optional
+	OwnerSelector *v1.Selector `json:"ownerSelector,omitempty" tf:"-"`
+
 	// (String) STACKIT project ID to which the instance is associated.
 	// STACKIT project ID to which the instance is associated.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
-
-	// (Set of String) Database access levels for the user. Supported values are: login, createdb.
-	// Database access levels for the user. Supported values are: `login`, `createdb`.
-	// +listType=set
-	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
-
-	// (String)
-	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
-type UserObservation struct {
+type DatabaseObservation struct {
 
-	// (String)
-	Host *string `json:"host,omitempty" tf:"host,omitempty"`
+	// (String) Database ID.
+	// Database ID.
+	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
 
-	// It is structured as "project_id,instance_id,user_id".
+	// It is structured as "project_id,instance_id,database_id".
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) ID of the PostgresFlex instance.
-	// ID of the PostgresFlex instance.
+	// (String) ID of the Postgres Flex instance.
+	// ID of the Postgres Flex instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
-	// (Number)
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	// (String) Database name.
+	// Database name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Username of the database owner.
+	// Username of the database owner.
+	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// (String) STACKIT project ID to which the instance is associated.
 	// STACKIT project ID to which the instance is associated.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
-
-	// (Set of String) Database access levels for the user. Supported values are: login, createdb.
-	// Database access levels for the user. Supported values are: `login`, `createdb`.
-	// +listType=set
-	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
-
-	// (String) User ID.
-	// User ID.
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
-
-	// (String)
-	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
-type UserParameters struct {
+type DatabaseParameters struct {
 
-	// (String) ID of the PostgresFlex instance.
-	// ID of the PostgresFlex instance.
+	// (String) ID of the Postgres Flex instance.
+	// ID of the Postgres Flex instance.
 	// +crossplane:generate:reference:type=github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex.AtProviderExtractor("instanceId")
 	// +kubebuilder:validation:Optional
@@ -91,26 +95,36 @@ type UserParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
+	// (String) Database name.
+	// Database name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Username of the database owner.
+	// Username of the database owner.
+	// +crossplane:generate:reference:type=github.com/stackitcloud/crossplane-provider-stackit/apis/postgresflex/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/stackitcloud/crossplane-provider-stackit/config/postgresflex.AtProviderExtractor("username")
+	// +kubebuilder:validation:Optional
+	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Reference to a User in postgresflex to populate owner.
+	// +kubebuilder:validation:Optional
+	OwnerRef *v1.Reference `json:"ownerRef,omitempty" tf:"-"`
+
+	// Selector for a User in postgresflex to populate owner.
+	// +kubebuilder:validation:Optional
+	OwnerSelector *v1.Selector `json:"ownerSelector,omitempty" tf:"-"`
+
 	// (String) STACKIT project ID to which the instance is associated.
 	// STACKIT project ID to which the instance is associated.
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
-
-	// (Set of String) Database access levels for the user. Supported values are: login, createdb.
-	// Database access levels for the user. Supported values are: `login`, `createdb`.
-	// +kubebuilder:validation:Optional
-	// +listType=set
-	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
-
-	// (String)
-	// +kubebuilder:validation:Optional
-	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
-// UserSpec defines the desired state of User
-type UserSpec struct {
+// DatabaseSpec defines the desired state of Database
+type DatabaseSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     UserParameters `json:"forProvider"`
+	ForProvider     DatabaseParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -121,52 +135,51 @@ type UserSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider UserInitParameters `json:"initProvider,omitempty"`
+	InitProvider DatabaseInitParameters `json:"initProvider,omitempty"`
 }
 
-// UserStatus defines the observed state of User.
-type UserStatus struct {
+// DatabaseStatus defines the observed state of Database.
+type DatabaseStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        UserObservation `json:"atProvider,omitempty"`
+	AtProvider        DatabaseObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// User is the Schema for the Users API. Postgres Flex user resource schema. Must have a region specified in the provider configuration.
+// Database is the Schema for the Databases API. Postgres Flex database resource schema. Must have a region specified in the provider configuration.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,stackit}
-type User struct {
+type Database struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.projectId) || (has(self.initProvider) && has(self.initProvider.projectId))",message="spec.forProvider.projectId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roles) || (has(self.initProvider) && has(self.initProvider.roles))",message="spec.forProvider.roles is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.username) || (has(self.initProvider) && has(self.initProvider.username))",message="spec.forProvider.username is a required parameter"
-	Spec   UserSpec   `json:"spec"`
-	Status UserStatus `json:"status,omitempty"`
+	Spec   DatabaseSpec   `json:"spec"`
+	Status DatabaseStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// UserList contains a list of Users
-type UserList struct {
+// DatabaseList contains a list of Databases
+type DatabaseList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []User `json:"items"`
+	Items           []Database `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	User_Kind             = "User"
-	User_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: User_Kind}.String()
-	User_KindAPIVersion   = User_Kind + "." + CRDGroupVersion.String()
-	User_GroupVersionKind = CRDGroupVersion.WithKind(User_Kind)
+	Database_Kind             = "Database"
+	Database_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Database_Kind}.String()
+	Database_KindAPIVersion   = Database_Kind + "." + CRDGroupVersion.String()
+	Database_GroupVersionKind = CRDGroupVersion.WithKind(Database_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&User{}, &UserList{})
+	SchemeBuilder.Register(&Database{}, &DatabaseList{})
 }

@@ -9,6 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	database "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/postgresflex/database"
 	instance "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/postgresflex/instance"
 	user "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/postgresflex/user"
 	providerconfig "github.com/stackitcloud/crossplane-provider-stackit/internal/controller/providerconfig"
@@ -18,6 +19,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		database.Setup,
 		instance.Setup,
 		user.Setup,
 		providerconfig.Setup,
