@@ -9,3 +9,4 @@ cover.out
 # ignore IDE folders
 .vscode/
 .idea/
+cluster/images/crossplane-provider-stackit/bin

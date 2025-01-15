@@ -2,6 +2,8 @@ module github.com/stackitcloud/crossplane-provider-stackit
 
 go 1.21
 
+replace github.com/crossplane/upjet => ../../crossplane/upjet
+
 require (
 	dario.cat/mergo v1.0.1
 	github.com/crossplane/crossplane-runtime v1.16.0

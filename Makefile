@@ -13,6 +13,7 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 export TERRAFORM_PROVIDER_SOURCE ?= stackitcloud/stackit
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/stackitcloud/terraform-provider-stackit
 export TERRAFORM_PROVIDER_VERSION ?= 0.33.2
+export TERRAFORM_PROVIDER_STORAGE=remote
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-stackit
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/stackitcloud/terraform-provider-stackit/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-stackit$(TERRAFORM_PROVIDER_VERSION)
