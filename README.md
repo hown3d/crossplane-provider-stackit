@@ -1,11 +1,18 @@
 # Provider STACKIT
 
+> [!WARNING]
+> This is not a product officialy supported by STACKIT
+
 `provider-stackit` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Upjet](https://github.com/crossplane/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
 STACKIT API.
 
 ## Getting Started
+
+> [!NOTE]
+> This provider depends on a [bug fix](https://github.com/crossplane/upjet/pull/448) in the upjet code for code generation.
+> Please ensure that your go.work or go.mod uses a replace to point to the fixed version
 
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/stackitcloud/crossplane-provider-stackit):
